@@ -1,171 +1,217 @@
 # CC Onboard
 
-> A new era of open source — not open code, but open conversation.
+> A new era of open source: not open code, but open conversation.
 >
-> *code is cheap, show me the talk.*
+> *Code is cheap, show me the talk.*
 
 ---
 
 I can't write code.
 
-For a long stretch of using Claude Code, my approach was: don't understand it, approve it anyway, see what happens.
+I have a label for myself that is embarrassingly accurate: **can't code, but insists on being in charge.**
 
-AI was helping me do a lot of things. But something was always off. It would modify files I didn't ask it to touch, reinvent wheels that already existed, hallucinate, explain things at length when I needed none of that. I assumed it was a model problem. It took me a while to realize: **I had never told it who I was.**
+For a long stretch of using Claude Code, my workflow looked like this: I didn't understand what it was doing, approved it anyway, and waited to see what would happen. AI helped a lot, but something always felt off. It modified files I didn't ask it to touch. It reinvented things that already existed. It fabricated. It yapped when I only wanted the answer.
 
-Every conversation, it started from zero, guessing. It didn't know I hated filler. Didn't know I'm idea-driven and like to think out loud. Didn't know I always want the MVP, never the complete solution. Didn't know my identity is in taste and judgment, not technical skill. It didn't know any of this, so it gave me an average.
+I thought this was a model problem.
 
-Fixing that took a long time. Not technically — cognitively. You have to understand yourself before you can write a useful configuration. It's not filling out a form. It's self-examination.
+It wasn't.
 
-Eventually I wrote a `CLAUDE.md`. After that, AI started actually working for me.
+The real problem was simpler: **I had never told it who I was.**
 
-Then I realized: this might not be my problem.
+Every conversation started from zero. It had to guess my rhythm, my tolerance, my standards, my boundaries. It didn't know I hate filler. Didn't know I'm idea-led. Didn't know I usually want the MVP, not the full cathedral. Didn't know when I want a sparring partner and when I want a quiet executor.
 
-The people around me who use AI most seriously mostly can't write code. They know "if you don't set it up right, it doesn't matter how good the AI is" — but nobody tells them how to set it up. They install Claude Code, find it ships fully armed — rules, hooks, permissions, configuration stacked on configuration — light users burn tokens on nothing, serious non-technical users can't find a foothold. They use it for a while, decide it's "fine," and stay there.
+So it gave me the average.
 
-Maybe you're the same: used a lot of AI, never actually run an agent. Every session you re-explain who you are, what you're working on, what style you want. It helps, but something's always slightly off, and you can't name what.
+And writing a good `CLAUDE.md` turns out not to be a syntax problem. It's a self-knowledge problem. You first have to articulate: what does AI do that instantly breaks trust? When should it take initiative? When should it shut up? What is absolutely off-limits? Most people get stuck there. Not because they can't configure the system, but because nobody ever asked them the right questions.
 
-You know you're supposed to configure it. You just don't know where to start. So you searched, found someone's CLAUDE.md on GitHub, figured it looked reasonable, copied it. Then noticed it still felt slightly wrong — of course it did. That was their answer. The question is yours.
+`CC Onboard` exists for that exact moment.
 
-What's off is it doesn't know you. Not because you didn't try. Because nobody in this process ever asked you the right questions.
-
-This skill is the path I paved after walking that road myself.
+It is not a template pack. It is not a survey. It is an onboarding conversation that uses 8-10 specific questions to surface how you actually work, then translates that into a Claude Code setup that can act on it.
 
 ---
 
-## Is This You?
+## Who This Is For
 
-I have a name for this kind of person: **can't code, but insists on being in charge.**
+This skill is for people who:
 
-You don't write code, but you have your own ideas and taste. Your identity lives in judgment, not in technical skill. You think from first principles. You want a sparring partner, not an obedient executor.
+- don't write code, but care deeply about taste, judgment, and control
+- use AI often, but still have to re-explain themselves every new session
+- copied someone else's `CLAUDE.md` and felt it was close, but not quite right
+- installed too many skills and hooks, then discovered "more" just meant slower, noisier, and more expensive
+- want to enter the agent era, but don't know what the first real step is
 
-You move first and ask questions later. You find direction through divergence. You always want the MVP, but it has to make you say "wow." You enjoy the exploration, but you know when to stop.
+I describe this user in one line: **can't code, but refuses to give up the steering wheel.**
 
-The four things that annoy you most about AI: **unauthorized changes, reinventing wheels, fabrication, and yapping.** You're not picky — these are the basic trust boundaries between you and AI.
-
-If you're reading this and thinking "that's literally me" — this skill was written for you.
-
----
-
-## There Are Two Ways to Use AI
-
-**AI that works for someone else**: answers your question, resets to zero, has no idea who you are by the next message. You think you're using AI. You're feeding it random prompts.
-
-**AI that works for you**: knows your rhythm, knows you hate filler, knows you'd rather move fast and correct later. Every session builds on the last. You're directing — not accommodating.
-
-This skill does one thing: **it makes that switch.**
+That is not a flaw. It just means you don't want AI to merely answer you. You want it to work with you on your terms.
 
 ---
 
-## This Is Your Entry Into the Agent Era
+## What It Actually Does
 
-You've probably used a lot of AI tools. ChatGPT, Copilot, Cursor, a dozen wrappers.
+`CC Onboard` does four things.
 
-But you may not have actually entered the agent era yet.
+### 1. It interviews you before it configures you
 
-The agent era isn't "AI got smarter." It's **you learning how to delegate your will to a machine**. Not you adapting to it — it adapting to you. That requires configuration, a starting point, and someone asking you the right questions — then translating your answers into something a machine can act on.
+You get 8-10 questions. Not a personality quiz. Not a giant form. Not a fake "choose the closest option" exercise.
 
-`CLAUDE.md` is that configuration. It's the personal contract between you and Claude Code. With it, Claude knows who you are. Without it, it only knows what you typed.
+The prompts are concrete:
 
-CC Onboard writes that contract for you.
+- What's the most annoying thing AI has ever done to you?
+- Are you more afraid of it doing too much, or too little?
+- Should it act like a teammate, a teacher, an assistant, or a just-do-it executor?
+
+Real preferences do not show up in abstract questions. They show up when you describe a real situation.
+
+### 2. It writes your `CLAUDE.md`
+
+Based on your answers, it generates a personal contract at `~/.claude/CLAUDE.md`.
+
+That file is not "best practices." It is your working agreement with AI. It tells Claude:
+
+- how to talk to you
+- what your trust boundaries are
+- when to move first and when to confirm
+- whether you want process or just results
+
+A good `CLAUDE.md` turns AI from a generic assistant into something that actually feels aligned.
+
+### 3. It adds safety locks only if your style calls for them
+
+Some people want AI to act first and report back. Others lose trust the moment it changes a file without asking.
+
+`CC Onboard` does not force everybody into one template. It reads your answers and decides whether your environment should stay fast and loose or whether it should add guardrails for file changes.
+
+### 4. It recommends skills instead of sending you shopping
+
+I fell into the obvious trap: install whatever looked powerful.
+
+GSD, PUA, Superpowers, memory systems, enhancement packs. Each one sounded smart in isolation. Together they often meant clashing rules, token burn, and way too much machinery for simple tasks.
+
+So this skill does not drop you in front of a 7000+ skill catalog and wish you luck. It first figures out what you actually need help with, then points you to the few things that truly fit.
 
 ---
 
-## What It Does
+## Why Follow-Up Beats Questionnaires
 
-**Interviews you.** 8-10 questions — not multiple choice, not a scale, but specific scenario prompts. "What's the most frustrating thing AI has ever done to you?" not "What response style do you prefer?" Real preferences only surface in real situations.
+This is the core product decision behind the project.
 
-**Generates your `CLAUDE.md`.** Based on what you actually said, in your voice, placed at `~/.claude/CLAUDE.md`. It also reads your personality to decide whether to add safety hooks — are you a "move fast, ask later" type or a "confirm every step" type? It figures it out and configures accordingly.
+Of course we considered the more "systematic" routes: lots of multiple-choice questions, or dynamically branching choice trees based on prior answers.
 
-**Recommends and installs skills.** Matched to your actual use cases. Not a catalog you scroll through alone.
+We rejected both.
 
-**Three depth tiers — your call:**
-- **Quick Start** — Just the CLAUDE.md. 5 minutes. Works immediately.
-- **Balanced** — CLAUDE.md + a few skills + optional hooks. Good daily driver.
-- **Full Setup** — Everything. Skills, hooks, memory. For heavy users.
+Why?
+
+- Multiple choice is fast, but people rush, skip, and pick "close enough."
+- Branching questionnaires are clever, but heavy and brittle.
+- The moment someone describes a real scenario in their own words, their actual preferences surface almost by themselves.
+
+That leads to the one-line thesis of this project:
+
+**It helps you discover who you are, instead of asking who you are.**
 
 ---
 
-## How It's Different
+## Why This Is Re-Runnable by Design
 
-Three existing projects, all found in the wild:
+The dream version is obvious: AI silently observes your behavior, learns your preferences, and keeps tuning your setup in the background.
 
-- **alignment-interview-cc** — 60 questions. Feels like an exam. Most people close it halfway.
-- **ai-personal-os-onboarding** — 4-round dialogue, but bundled with a course framework.
-- **gsd:profile-user** — Passively analyzes your conversation history. Doesn't actively guide you.
+In practice, that idea crashes into the core need of this user type:
 
-The difference here comes down to one line: **it helps you discover who you are, instead of asking who you are.**
+**I decide.**
 
-A questionnaire gives you options and you pick the closest one. A follow-up conversation forces you to describe a situation — and your real self comes out.
+The moment AI changes your configuration on its own, even with good intentions, trust drops.
 
-We also tried branching choice trees — generating the next question's options based on your previous answer, branching infinitely. Too heavy. Too much logic. And the fundamental problem with choices remains: people rush through them, skip, pick "close enough." Only when you describe a specific situation in your own words do your real preferences surface.
+So this skill takes the less clever but more reliable route:
+
+- Do the onboarding first.
+- Do not silently take over.
+- Make the process easy to run again whenever the setup starts feeling slightly wrong.
+
+That is why `/onboard review` exists. It gives you periodic recalibration without taking control away from you.
+
+---
+
+## Three Depth Tiers
+
+- **Quick Start**: just the `CLAUDE.md`
+- **Balanced**: `CLAUDE.md` + a few core skills + optional safety hooks
+- **Full Setup**: broader skills, hooks, and memory for heavier use
+
+Not everyone needs the maximum configuration on day one. The best setup is not the biggest one. It is the one that fits.
+
+---
+
+## `CLAUDE.md` Actually Has Three Layers
+
+One thing that is oddly under-explained in practice:
+
+- `~/.claude/CLAUDE.md`: your personal contract with AI across projects
+- `~/CLAUDE.md` or a project-root `CLAUDE.md`: machine-specific or project-specific rules
+- deeper subdirectory `CLAUDE.md` files: narrower local context
+
+`CC Onboard` focuses on the first layer, because that is the layer most people never properly define.
+
+---
+
+## How This Differs from Other Onboarding Approaches
+
+I've seen a few common patterns:
+
+- some feel like an exam
+- some bundle onboarding into a larger course or framework
+- some passively inspect your history instead of actively guiding you
+
+`CC Onboard` is different for a simpler reason:
+
+**it productizes the valuable part of the process itself.**
+
+Not the config file. Not the framework. The follow-up conversation that keeps asking until your real working style becomes visible.
 
 ---
 
 ## Install
 
 ```bash
-npx skills add slr/cc-onboard -g -y
+npx skills add fantasyslr/cc-onboard -g -y
 ```
 
 ## Use
 
-First time:
-```
+First run:
+
+```bash
 /onboard
 ```
 
-After you've been using Claude Code for a while:
-```
+When you want to review and tune the setup later:
+
+```bash
 /onboard review
 ```
 
-No `CLAUDE.md` detected → full flow, 8-10 questions.
+No `CLAUDE.md` detected -> full onboarding flow.
 
-`CLAUDE.md` already exists → review mode, 3-4 targeted questions, proposed changes only. Nothing overwritten without your explicit OK.
+`CLAUDE.md` already exists -> review mode, 3-4 targeted questions, suggested edits only. Nothing gets overwritten automatically.
 
-All data stays local. Nothing leaves your machine.
-
----
-
-## Why CLAUDE.md Needs Maintenance
-
-Your first CLAUDE.md will be wrong. Not completely — just incomplete.
-
-Use it for a week and you'll find: "I also hate when it does X" or "actually I do want it to explain sometimes." That's normal. You're calibrating against a system, and the first pass is never fully accurate.
-
-`/onboard review` is designed for exactly this. Think of it as a quarterly retrospective, not a one-time setup. Every review closes the gap between who you think you are and how you actually work.
-
-### The Ideal vs. Reality
-
-The ideal would be an AI that silently observes your usage patterns and optimizes your configuration automatically. An invisible coach.
-
-But in practice, this goes wrong easily — the moment it changes your config on its own and you notice, your first instinct is to turn it off. Because people who "can't code but insist on being in charge" have one core need: **I decide.** Any unsolicited move, no matter how well-intentioned, triggers distrust.
-
-So we chose the least clever but most reliable approach: **you come to it, it responds.** Build A (guided onboarding), but design it to be re-runnable — which effectively achieves C (periodic coaching). Control stays in your hands, always.
-
-### By the Way, CLAUDE.md Has Three Layers
-
-Claude Code's configuration actually works on three levels:
-
-- **`~/.claude/CLAUDE.md`** — Your personal contract with AI. Applies across all projects. This is what CC Onboard generates.
-- **`~/CLAUDE.md` or project root** — Project-specific rules. Like "this project uses Python" or "deployed on AWS."
-- **Subdirectory `CLAUDE.md`** — Even more granular context.
-
-You only need to worry about the first layer to start. As you get comfortable, you'll naturally know when you need the second.
+All data stays local.
 
 ---
 
-## The Spirit Behind This
+## Where This Project Came From
 
-This skill was itself built through conversation.
+This skill did not start as a PRD.
 
-It started with a brainstorm about how to combine three different AI tool frameworks into one personal workflow. During that process, AI used follow-up questions to help me discover my own usage preferences and pain points. Then I realized: the "follow-up → self-discovery" process itself is a product.
+It started as two conversations.
 
-How the idea surfaced, which directions got rejected, what the final decisions were and why — that process is more valuable than the code. So it's open-sourced too, in `archive/`.
+The first was a brainstorm about combining several AI workflow systems into a personal harness. During that process, AI kept asking follow-up questions and slowly surfaced my preferences, frustrations, and boundaries. The second conversation made the more important insight obvious: **the thing worth productizing was not some magic configuration, but the follow-up process that helps someone discover how they want to work with AI.**
 
-A new era of open source — not open code, but open conversation.
+So this repository tries to open-source more than the skill itself. It also open-sources, as much as possible, how the idea took shape. You can trace that arc in `archive/`.
 
-Take the code, you can copy the tool. Take the conversation, you can see how the tool was thought into existence.
+Take the code and you can copy the tool.
+
+Take the conversation and you can see how the tool was thought into existence.
+
+That is what "open conversation" means here.
 
 ---
 
