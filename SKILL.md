@@ -114,10 +114,36 @@ If user is **Cautious** or **Controller**, add `PreToolUse` hooks to `~/.claude/
 
 #### 3c. Skill Curation
 
-Don't just list skills. Recommend **three** that match their role.
-- Run `npx skills find [role/task]` based on The Handoff answer (Q5).
-- If `npx skills find` returns poor results, try 2-3 different search terms before falling back to general recommendations.
-- Present them with "Why this helps you" descriptions — not feature lists.
+Don't dump a catalog. Recommend **2-3 skills** that match what the user actually said in Q5 (The Handoff).
+
+**Use the find-skills workflow** (if the find-skills skill is installed, invoke it; otherwise follow this process manually):
+
+1. **Map their answer to search terms.** "I do data analysis" → search `data analysis`, `spreadsheet`, `csv`. "I manage projects" → search `project management`, `planning`. Try 2-3 different terms.
+
+2. **Check quality before recommending.** Not everything in SkillsMP is good.
+   - Prefer skills with **1K+ installs**.
+   - Official sources (`vercel-labs`, `anthropics`, `obra`) are safer than unknown authors.
+   - Under 100 installs = treat with caution.
+
+3. **Present in plain language.** Don't show raw search output. For each recommendation:
+   - What it does (one sentence, no jargon)
+   - Why it fits THIS user specifically (connect to their Q5 answer)
+   - Install count as credibility signal
+
+4. **Ask before installing.** Never auto-install. Show the list, let them pick.
+
+5. **If nothing good is found**, say so honestly. "I searched for X but didn't find a good match. You can always add skills later — run `/find-skills` anytime."
+
+**Common mappings** (starting points, not exhaustive):
+
+| User says | Search terms | Likely hits |
+|---|---|---|
+| Writing, copywriting, emails | `writing`, `content`, `copywriting` | Writing/content skills |
+| Data, spreadsheets, analysis | `data analysis`, `csv`, `spreadsheet` | Data processing skills |
+| Research, search, browsing | `web search`, `research`, `browse` | web-access, search skills |
+| Making websites, design | `frontend`, `design`, `ui` | frontend-design |
+| Project management | `project management`, `planning` | GSD or similar |
+| Code review, quality | `review`, `lint`, `best-practices` | Code quality skills |
 
 ---
 
