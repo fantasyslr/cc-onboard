@@ -138,7 +138,7 @@ Maximum safety signal → hooks added to `~/.claude/settings.json`:
         "hooks": [
           {
             "type": "command",
-            "command": "echo '⚠️ About to modify a file. Review the changes above before approving.'",
+            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"ask\", \"permissionDecisionReason\": \"CC Onboard safety: file modification requires your approval\"}}'",,
             "timeout": 2
           }
         ]
@@ -148,7 +148,7 @@ Maximum safety signal → hooks added to `~/.claude/settings.json`:
 }
 ```
 
-**Presented as**: "I've added a safety lock. Before I change any file, I'll stop and show you what I'm about to do. You'll need to approve every change."
+**Presented as**: "I've added a safety check. Before I change any file, you'll be asked to approve the change first. Nothing happens until you say yes."
 
 ## Skills Recommended
 

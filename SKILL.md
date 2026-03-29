@@ -48,9 +48,9 @@ On invocation, check if `~/.claude/CLAUDE.md` exists.
 ## 4. Conversation State Machine
 
 ```
-WELCOME → INTERVIEW → ANALYZE → GENERATE → CONFIRM → WRITE → DONE
-                ↑                                        |
-                └──── user requests changes ─────────────┘
+WELCOME → INTERVIEW → ANALYZE → TIER_SELECT → GENERATE → CONFIRM → WRITE → DONE
+                ↑                                                     |
+                └──── user requests changes ──────────────────────────┘
 ```
 
 **Each state has one job. Do not mix states.**
@@ -75,7 +75,30 @@ WELCOME → INTERVIEW → ANALYZE → GENERATE → CONFIRM → WRITE → DONE
 - Internal only. Do not show analysis to user.
 - Classify archetype (Section 7).
 - Determine: CLAUDE.md sections, hooks yes/no, skill search terms.
-- Transition: immediately → GENERATE.
+- Determine recommended tier based on archetype:
+  - Pragmatist / Hands-Off → recommend Quick Start
+  - Cautious / Visionary → recommend Balanced
+  - Power/Pro literacy → recommend Full Setup
+- Transition: immediately → TIER_SELECT.
+
+### State: TIER_SELECT
+
+- Present three tiers using AskUserQuestion. Use plain language, no jargon:
+  - **Quick Start** — "I'll just set up your personal AI contract. Fastest option, takes effect immediately."
+  - **Balanced** — "AI contract + a few tools that match your work + safety checks if you want them. Good for daily use." *(recommended for most users)*
+  - **Full Setup** — "Everything in Balanced, plus memory so AI remembers things across conversations. Best for heavy daily use, but AI thinks harder (uses more resources)."
+- Indicate the recommended option based on analysis: "Based on what you told me, I'd suggest [X]."
+- Transition: user chooses → GENERATE (with tier stored for generation scope).
+
+**Tier determines generation scope:**
+
+| Tier | CLAUDE.md | Hooks | Skills | Memory |
+|---|:---:|:---:|:---:|:---:|
+| Quick Start | ✅ | ❌ | ❌ | ❌ |
+| Balanced | ✅ | If Cautious | ✅ 2-3 | ❌ |
+| Full Setup | ✅ | If Cautious | ✅ 2-3 | ✅ Setup memory dir |
+
+Note: Even in Quick Start, if the user has a trust-breaking incident (Q2) AND is Cautious, still recommend Balanced with hooks. Safety overrides tier preference.
 
 ### State: GENERATE
 
@@ -86,10 +109,19 @@ WELCOME → INTERVIEW → ANALYZE → GENERATE → CONFIRM → WRITE → DONE
 
 ### State: CONFIRM
 
-- Show the user the drafted CLAUDE.md content.
-- Show hooks decision in plain language (never show JSON to non-technical users).
+**For Lite/Standard users** (most users): Do NOT paste the raw CLAUDE.md. Instead, walk through each section in plain language:
+- "Here's what I've set up based on our conversation:"
+- "**How I'll talk to you**: [summarize Voice & Tone in one sentence]"
+- "**What I know about your work**: [summarize Project Context]"
+- "**Things I'll never do**: [list Hard Rules in plain language]"
+- "**How I'll handle file changes**: [explain Brake/Gas in one sentence]"
+- "**How I'll deliver results**: [summarize Delivery]"
+- Then ask: "Does this sound right? Want to change anything?"
+
+**For Power/Pro users**: Show the actual CLAUDE.md draft — they can read it and want to see the exact text.
+
+- Show hooks decision in plain language (never show JSON).
 - Show skill recommendations with "why this fits you" explanation.
-- Ask: "Does this look right? Want to change anything?"
 - If user requests changes → go back to GENERATE with modifications.
 - If user approves → WRITE.
 
@@ -130,7 +162,7 @@ WELCOME → INTERVIEW → ANALYZE → GENERATE → CONFIRM → WRITE → DONE
 
 | Condition | Action |
 |---|---|
-| Answer < 15 characters | Probe: "Can you give me a specific example of when that happened?" |
+| Answer lacks actionable detail (e.g., just a job title with no context, a one-word emotion with no incident) | Probe: "Can you give me a specific example of when that happened?" |
 | Answer is a category, not an incident (e.g., "it talks too much") | Probe: "What was the actual situation? What were you trying to do, and what did it do instead?" |
 | Answer contradicts a previous answer | Note both. Ask: "Earlier you said X, but now it sounds like Y. Which matters more to you?" |
 | Answer already covers a later question | Skip that later question. Don't re-ask what you already know. |
@@ -245,14 +277,17 @@ Every generated CLAUDE.md must have these 5 sections, in this order:
 
 ### 9a. When to Add Hooks
 
-Add `PreToolUse` hooks ONLY when:
-- User is Cautious archetype, AND
-- Q4 answer is explicitly Brake ("ask first", "always check"), OR
-- Q2 describes a trust-breaking file modification incident.
+**Override rule (highest priority):** If Q2 describes a trust-breaking file modification incident (AI rewrote/deleted/restructured files without permission), ALWAYS add hooks — regardless of archetype or Q4 answer. A user who tells you their files were destroyed is a Brake user, even if everything else says Pragmatist.
 
-Do NOT add hooks for Pragmatist, Hands-Off, or users who chose Gas.
+Otherwise, add hooks when:
+- User is Cautious archetype, AND
+- Q4 answer is explicitly Brake ("ask first", "always check").
+
+Do NOT add hooks for users who chose Gas AND have no trust-breaking incident in Q2.
 
 ### 9b. Hook Configuration
+
+The hook must **actually block** file modifications, not just print a warning. A plain `echo` + exit 0 does NOT block Claude — it just prints text and proceeds. The hook must output a `permissionDecision` that forces user approval.
 
 ```json
 {
@@ -263,7 +298,7 @@ Do NOT add hooks for Pragmatist, Hands-Off, or users who chose Gas.
         "hooks": [
           {
             "type": "command",
-            "command": "echo '⚠️ About to modify a file. Review the changes above before approving.'",
+            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"ask\", \"permissionDecisionReason\": \"CC Onboard safety: file modification requires your approval\"}}'",
             "timeout": 2
           }
         ]
@@ -273,6 +308,10 @@ Do NOT add hooks for Pragmatist, Hands-Off, or users who chose Gas.
 }
 ```
 
+**Why this works:** The `permissionDecision: "ask"` output forces Claude Code to pause and prompt the user for explicit approval before proceeding with the file change, even if the user's global permission mode is set to auto-approve.
+
+**IMPORTANT:** Do NOT use a plain `echo` message — that exits 0 and Claude proceeds without stopping. The JSON output with `permissionDecision` is what actually triggers the blocking behavior.
+
 ### 9c. Write Rules for settings.json
 
 | Scenario | Action |
@@ -280,11 +319,15 @@ Do NOT add hooks for Pragmatist, Hands-Off, or users who chose Gas.
 | `~/.claude/settings.json` does not exist | Create it with the hooks config as the only content. |
 | File exists but has no `hooks` key | Add the `hooks` key. Preserve all other content. |
 | File exists with existing hooks | Append to the existing `PreToolUse` array. Never replace existing hooks. |
+| File exists but structure is unparseable | **Do not modify.** Skip hooks. Tell user: "Your settings file has a custom setup I don't want to break. You can add the safety check manually if you want." |
+
+**Always back up settings.json before modifying:** Copy to `~/.claude/settings.json.backup` first.
 
 ### 9d. How to Present Hooks to User
 
 Never show JSON. Say something like:
-- "I added a safety lock — before I change any of your files, I'll pause and show you what I'm about to do."
+- "I added a safety check — before I change any of your files, you'll be asked to approve the change first. Nothing happens until you say yes."
+- Do NOT call it a "safety lock" unless it actually blocks. The current implementation forces an approval prompt — this is accurate to describe as "you'll be asked to approve."
 - Adapt to their language.
 
 ---

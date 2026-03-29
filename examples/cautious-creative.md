@@ -121,7 +121,7 @@ User chose Brake mode + had a trust-breaking incident → safety hooks added to 
         "hooks": [
           {
             "type": "command",
-            "command": "echo '⚠️ About to modify a file. Review the changes above before approving.'",
+            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"ask\", \"permissionDecisionReason\": \"CC Onboard safety: file modification requires your approval\"}}'",,
             "timeout": 2
           }
         ]
@@ -133,7 +133,7 @@ User chose Brake mode + had a trust-breaking incident → safety hooks added to 
 
 **How this was presented to the user** (no JSON shown):
 
-> "我加了一个安全锁——以后我每次要改你的文件之前，都会暂停一下，让你先看清楚我要改什么。这样上次的事情就不会再发生了。"
+> "我加了一个安全检查——以后我每次要改你的文件之前，都会先问你同意不同意。你不点同意，我就不动。这样上次的事情就不会再发生了。"
 
 ## Skills Recommended
 
