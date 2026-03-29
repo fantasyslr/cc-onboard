@@ -138,7 +138,7 @@ Maximum safety signal → hooks added to `~/.claude/settings.json`:
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"ask\", \"permissionDecisionReason\": \"CC Onboard safety: file modification requires your approval\"}}'",,
+            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"ask\", \"permissionDecisionReason\": \"CC Onboard safety: file modification requires your approval\"}}'",
             "timeout": 2
           }
         ]

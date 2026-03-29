@@ -100,6 +100,8 @@ WELCOME → INTERVIEW → ANALYZE → TIER_SELECT → GENERATE → CONFIRM → W
 
 Note: Even in Quick Start, if the user has a trust-breaking incident (Q2) AND is Cautious, still recommend Balanced with hooks. Safety overrides tier preference.
 
+**Full Setup memory implementation:** If user chooses Full Setup, after writing CLAUDE.md, create the memory directory `~/.claude/memory/` and add a `MEMORY.md` index file. Explain to user: "I've set up a memory system. From now on, AI can save notes about your preferences across conversations — things it learns over time. You stay in control: you can read, edit, or delete anything in that folder."
+
 ### State: GENERATE
 
 - Build the CLAUDE.md draft per Generation Contract (Section 8).
@@ -505,5 +507,7 @@ See `examples/` for complete fixtures showing the full pipeline:
 - `cautious-creative.md` — trust-broken designer, Brake autonomy, hooks added
 - `vague-responder.md` — short/unclear answers, conservative fallback
 - `high-control.md` — strong boundaries, maximum safety, detailed rules
+- `visionary.md` — brainstorm-driven founder, options-oriented, split autonomy (Gas for content, Brake for code)
+- `conflicting-signals.md` — Pragmatist vocabulary + Cautious incident → demonstrates Q2 override rule in action
 
 Each fixture contains: 5-question transcript → signal extraction → generated CLAUDE.md → translation log explaining why each rule exists.

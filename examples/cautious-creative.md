@@ -121,7 +121,7 @@ User chose Brake mode + had a trust-breaking incident → safety hooks added to 
         "hooks": [
           {
             "type": "command",
-            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"ask\", \"permissionDecisionReason\": \"CC Onboard safety: file modification requires your approval\"}}'",,
+            "command": "echo '{\"hookSpecificOutput\": {\"hookEventName\": \"PreToolUse\", \"permissionDecision\": \"ask\", \"permissionDecisionReason\": \"CC Onboard safety: file modification requires your approval\"}}'",
             "timeout": 2
           }
         ]

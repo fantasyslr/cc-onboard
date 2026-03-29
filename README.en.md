@@ -75,11 +75,11 @@ That file is not "best practices." It is your working agreement with AI. It tell
 
 A good `CLAUDE.md` turns AI from a generic assistant into something that actually feels aligned.
 
-### 3. It adds safety locks only if your style calls for them
+### 3. It adds safety checks only if your style calls for them
 
 Some people want AI to act first and report back. Others lose trust the moment it changes a file without asking.
 
-`CC Onboard` does not force everybody into one template. It reads your answers and decides whether your environment should stay fast and loose or whether it should add guardrails for file changes.
+`CC Onboard` does not force everybody into one template. It reads your answers and decides whether to add a safety check — when enabled, AI must ask for your approval before changing any file. Nothing happens until you say yes.
 
 ### 4. It recommends skills instead of sending you shopping
 
@@ -173,12 +173,12 @@ Not the config file. Not the framework. The follow-up conversation that keeps as
 
 | Module | Status | Notes |
 |--------|:---:|-------|
-| Onboarding flow | ✅ Ready | 5-question interview + auto-classification + config generation |
-| Review mode | ✅ Ready | Recalibration without overwriting existing config |
-| Translation rules | ✅ Built-in | Answer→config mapping table, semi-structured |
-| Examples | ✅ Complete | `examples/`: two user types with full 5-question transcripts + generated output + translation logic |
-| Safety hooks | ✅ Ready | Auto-configured based on user preference |
-| Skill recommendations | ✅ Ready | Integrated quality checks (install count, source reputation) before recommending |
+| Onboarding flow | ✅ Ready | 5-question interview + 3-tier depth selection + config generation |
+| Review mode | ✅ Ready | Proposes surgical edits, not rewrites |
+| Translation rules | ✅ Built-in | 6 dimensions, ~30 mappings, answer→config traceable |
+| Examples | ✅ 6 fixtures | `examples/`: pragmatist, cautious, vague, high-control, visionary, conflicting signals |
+| Safety checks | ✅ Ready | Real blocking (requires user approval before file changes), not decorative |
+| Skill recommendations | ✅ Ready | Quality-gated (install count, source reputation) |
 | Output stability testing | 🔜 Planned | Comparative testing across user types |
 | Demo / screencast | 🔜 Planned | Full onboarding flow recording |
 
