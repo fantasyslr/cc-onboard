@@ -26,7 +26,7 @@ And writing a good `CLAUDE.md` turns out not to be a syntax problem. It's a self
 
 `CC Onboard` exists for that exact moment.
 
-It is not a template pack. It is not a survey. It is an onboarding conversation that uses 8-10 specific questions to surface how you actually work, then translates that into a Claude Code setup that can act on it.
+It is not a template pack. It is not a survey. It is an onboarding conversation that uses 5 specific questions to surface how you actually work, then translates that into a Claude Code setup that can act on it.
 
 ---
 
@@ -52,7 +52,7 @@ That is not a flaw. It just means you don't want AI to merely answer you. You wa
 
 ### 1. It interviews you before it configures you
 
-You get 8-10 questions. Not a personality quiz. Not a giant form. Not a fake "choose the closest option" exercise.
+You get 5 questions. Not a personality quiz. Not a giant form. Not a fake "choose the closest option" exercise.
 
 The prompts are concrete:
 
@@ -166,6 +166,25 @@ I've seen a few common patterns:
 **it productizes the valuable part of the process itself.**
 
 Not the config file. Not the framework. The follow-up conversation that keeps asking until your real working style becomes visible.
+
+---
+
+## Project Status
+
+| Module | Status | Notes |
+|--------|:---:|-------|
+| SKILL.md (onboarding flow) | ✅ Ready | 5-question interview + auto-classification + config generation |
+| SKILL.md (review mode) | ✅ Ready | Recalibration without overwriting existing config |
+| Translation rules (answer→config mapping) | ✅ Built-in | See Translation Rules section in SKILL.md |
+| Example outputs | ✅ Available | `examples/` directory: two user types, full interview→config walkthrough |
+| Hooks auto-config | ✅ Ready | Added based on user preference |
+| Skill recommendations | ⚠️ Ecosystem-dependent | Via `npx skills find` — result quality depends on SkillsMP ecosystem |
+| Output stability testing | 🔜 Planned | A/B testing across user types to validate generation quality |
+| Demo / screencast | 🔜 Planned | Full onboarding flow recording |
+
+**This is a working skill, not a concept doc.** You can `npx skills add` and `/onboard` right now.
+
+But it's young — translation rules rely on LLM comprehension rather than hardcoded logic, skill recommendations depend on external ecosystem quality, and output stability hasn't been validated at scale. If the generated CLAUDE.md feels off, run `/onboard review` to recalibrate.
 
 ---
 
