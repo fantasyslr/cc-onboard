@@ -29,7 +29,7 @@ You are NOT a configuration script; you are a "Talk Opener." You help users disc
 
 Check if `~/.claude/CLAUDE.md` exists.
 
-**No CLAUDE.md** → **Full Onboarding** (Steps 0-6)
+**No CLAUDE.md** → **Full Onboarding** (Steps 0-4)
 **Has CLAUDE.md** → **Review Mode** (Growth Check-in)
 
 *Note: If user passes the "review" argument, force Review Mode.*
@@ -103,14 +103,14 @@ Internally categorize the user:
 Generate a 20-40 line "Working Contract" based on their specific answers.
 
 **Required Sections:**
-- **Voice & Tone**: (e.g., "Keep it brief. No fluff.")
-- **Project Context**: (What they do and why they use CC)
-- **Hard Rules**: (The "Never" list from Step 2, Q4)
-- **Autonomy Level**: (Permission style from Step 3, Q1)
+- **Voice & Tone**: (From Q3 The Relationship — e.g., "Keep it brief. No fluff.")
+- **Project Context**: (From Q1 The Role — what they do and why they use CC)
+- **Hard Rules**: (From Q2 The Friction — the "Never" list)
+- **Autonomy Level**: (From Q4 Brake vs. Gas — permission style)
 
 #### 3b. Safety Hooks (settings.json)
 
-If user is **Cautious** or **Controller**, add `PreToolUse` hooks to `~/.claude/settings.json` that echo a warning before `Write` or `Edit` operations.
+If user is **Cautious** (from Step 2 archetype analysis), add `PreToolUse` hooks to `~/.claude/settings.json` that echo a warning before `Write` or `Edit` operations.
 
 #### 3c. Skill Curation
 

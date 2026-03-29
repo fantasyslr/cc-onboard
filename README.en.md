@@ -26,7 +26,7 @@ And writing a good `CLAUDE.md` turns out not to be a syntax problem. It's a self
 
 `CC Onboard` exists for that exact moment.
 
-It is not a template pack. It is not a survey. It is an onboarding conversation that uses 5 specific questions to surface how you actually work, then translates that into a Claude Code setup that can act on it.
+It is not a template pack. It is not a survey. It is an onboarding conversation that uses 5 specific questions to surface how you actually work, then translates your answers into a personal contract that AI will actually follow.
 
 ---
 
@@ -87,7 +87,7 @@ I fell into the obvious trap: install whatever looked powerful.
 
 GSD, PUA, Superpowers, memory systems, enhancement packs. Each one sounded smart in isolation. Together they often meant clashing rules, token burn, and way too much machinery for simple tasks.
 
-So this skill does not drop you in front of a 7000+ skill catalog and wish you luck. It first figures out what you actually need help with, then points you to the few things that truly fit.
+So this skill does not drop you in front of a massive catalog and wish you luck. It first figures out what you actually need help with, then points you to the few things that truly fit — after checking whether each recommendation is actually trustworthy (install count, source reputation).
 
 ---
 
@@ -173,18 +173,18 @@ Not the config file. Not the framework. The follow-up conversation that keeps as
 
 | Module | Status | Notes |
 |--------|:---:|-------|
-| SKILL.md (onboarding flow) | ✅ Ready | 5-question interview + auto-classification + config generation |
-| SKILL.md (review mode) | ✅ Ready | Recalibration without overwriting existing config |
-| Translation rules (answer→config mapping) | ✅ Built-in | See Translation Rules section in SKILL.md |
-| Example outputs | ✅ Available | `examples/` directory: two user types, full interview→config walkthrough |
-| Hooks auto-config | ✅ Ready | Added based on user preference |
-| Skill recommendations | ⚠️ Ecosystem-dependent | Via `npx skills find` — result quality depends on SkillsMP ecosystem |
-| Output stability testing | 🔜 Planned | A/B testing across user types to validate generation quality |
+| Onboarding flow | ✅ Ready | 5-question interview + auto-classification + config generation |
+| Review mode | ✅ Ready | Recalibration without overwriting existing config |
+| Translation rules | ✅ Built-in | Answer→config mapping table, semi-structured |
+| Examples | ✅ Complete | `examples/`: two user types with full 5-question transcripts + generated output + translation logic |
+| Safety hooks | ✅ Ready | Auto-configured based on user preference |
+| Skill recommendations | ✅ Ready | Integrated quality checks (install count, source reputation) before recommending |
+| Output stability testing | 🔜 Planned | Comparative testing across user types |
 | Demo / screencast | 🔜 Planned | Full onboarding flow recording |
 
-**This is a working skill, not a concept doc.** You can `npx skills add` and `/onboard` right now.
+**Ready to use now.** Install and `/onboard`.
 
-But it's young — translation rules rely on LLM comprehension rather than hardcoded logic, skill recommendations depend on external ecosystem quality, and output stability hasn't been validated at scale. If the generated CLAUDE.md feels off, run `/onboard review` to recalibrate.
+Translation rules rely on LLM comprehension rather than hardcoded logic — meaning the same answer may produce slightly different configs on different runs. If the generated contract feels off, run `/onboard review` to recalibrate.
 
 ---
 
